@@ -9,10 +9,15 @@
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">  
       
         <!-- create your changeset here -->
-        <changeSet author="ahmed (generated)" id="169999375712-2">
+        
+        <changeSet author="ahmed" id="169999375293-2">
+	        <dropColumn  
+	            tableName="equipments">  
+	            <column name="status"/>  
+		    </dropColumn> 
 		    <addColumn 
-		        tableName="users">
-		        <column name="address" 
+		        tableName="equipments">
+		        <column name="status" 
 		            type="varchar(255)"/>  
 		    </addColumn>  
         </changeSet>
