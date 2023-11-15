@@ -13,6 +13,6 @@ import com.app.project.model.Equipment;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
-	@Query("SELECT e FROM Equipment e WHERE e.name LIKE %?1% or e.status LIKE %?2% ")
-	public List<Equipment> searchEquipment(@Param("name") String name, @Param("status") String status);
+	@Query("SELECT e FROM Equipment e WHERE e.name LIKE %?1% or e.status LIKE %?2% or e.registration_number LIKE %?3%  ")
+	public List<Equipment> searchEquipment(@Param("name") String name, @Param("status") String status,@Param("registration_number") String registration_number);
 }

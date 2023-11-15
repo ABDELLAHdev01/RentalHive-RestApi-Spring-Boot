@@ -24,7 +24,6 @@ public class EquipmentController {
 	
 	@GetMapping("/searchEquipments")
 	public List<Equipment> searchUserByQuerys(@RequestParam String givenType){
-		System.out.println("jdjdjkfd");
 		return equipmentService.searchEquipmentByGivenType(givenType);
 	}
 }
