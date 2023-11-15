@@ -8,18 +8,7 @@
       http://www.liquibase.org/xml/ns/pro 
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">  
       
-      <changeSet id="create-categories-table" author="ahmed">
-
-	    <createTable tableName="categories">
-	      <column name="id" type="int">
-	        <constraints primaryKey="true" nullable="false"/>
-	      </column>
-	
-	      <column name="name" type="varchar(255)">
-	        
-	      </column>
-	    </createTable>
-
-  </changeSet>
+      
+      
         
 </databaseChangeLog> 
