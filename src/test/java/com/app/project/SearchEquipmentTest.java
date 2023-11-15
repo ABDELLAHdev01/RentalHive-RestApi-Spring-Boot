@@ -39,4 +39,15 @@ class SearchEquipmentTest {
 
         assertEquals(expectedEquipment, actualEquipment);
     }
+	@Test
+    void shouldReturnEmptyListWhenGivenTypeIsNotFound() {
+        String givenType = "testType";
+        List<Equipment> expectedEquipment = new ArrayList<>();
+
+        when(equipmentRepository.searchEquipment(givenType, givenType, givenType)).thenReturn(expectedEquipment);
+
+        List<Equipment> actualEquipment = equipmentService.searchEquipmentByGivenType(givenType);
+
+        assertEquals(expectedEquipment, actualEquipment);
+    }
 }
