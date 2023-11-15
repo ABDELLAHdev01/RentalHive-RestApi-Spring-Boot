@@ -1,13 +1,11 @@
 package com.app.project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.app.project.model.Rent;
 import org.springframework.stereotype.Service;
 
-import com.app.project.repository.RentRepository;
-
+import java.util.List;
 @Service
-public class RentService {
-
-	@Autowired
-	private RentRepository rentRepository;
+public interface RentService {
+    public List<Rent> findAll();
+    public Rent save(Rent rent);
 }
