@@ -5,12 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.Date;
 
 
 @Data
 @Entity
+@AllArgsConstructor
 @Table(name ="equipments")
 public class Equipment {
 
@@ -18,7 +20,11 @@ public class Equipment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private boolean status;
+	private String status;
 	private double price;
-	
+
+
+	public Equipment() {
+
+	}
 }

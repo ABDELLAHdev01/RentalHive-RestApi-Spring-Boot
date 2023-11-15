@@ -17,8 +17,9 @@ public class EquipmentService {
 	public List<Equipment> getAllEquipment(){
 		return null;
 	}
-	public void createEquipment(Equipment equipment) {
-		
+	public Equipment createEquipment(Equipment equipment) {
+
+		return equipmentRepository.save(equipment);
 	}
 	public void updateEquipment(Equipment equipment) {
 		

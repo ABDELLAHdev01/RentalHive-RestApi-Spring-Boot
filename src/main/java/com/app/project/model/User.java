@@ -20,4 +20,6 @@ public class User {
 	private String familyName;
 	private String email;
 	private String number;
+	private String address;
+
 }
