@@ -10,15 +10,11 @@
       
         <!-- create your changeset here -->
         
-        <changeSet author="ahmed" id="169999375293-2">
-	        <dropColumn  
-	            tableName="equipments">  
-	            <column name="status"/>  
-		    </dropColumn> 
+        <changeSet author="ahmed" id="1699993983-2">
 		    <addColumn 
 		        tableName="equipments">
-		        <column name="status" 
-		            type="varchar(255)"/>  
+		        <column name="registration_number" 
+		            type="varchar(255)"/> 
 		    </addColumn>  
         </changeSet>
     
