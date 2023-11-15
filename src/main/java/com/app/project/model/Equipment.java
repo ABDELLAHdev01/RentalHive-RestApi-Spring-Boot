@@ -20,5 +20,5 @@ public class Equipment {
 	private String name;
 	private String status;
 	private double price;
-	
+	private String registration_number;
 }
