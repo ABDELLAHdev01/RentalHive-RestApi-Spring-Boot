@@ -50,4 +50,12 @@ class SearchEquipmentTest {
 
         assertEquals(expectedEquipment, actualEquipment);
     }
+	@Test
+    void testSearchEquipmentByGivenType_ShouldReturnEmpyList_WhenGivenTypeIsValid() {
+        String givenType = "test";
+
+        List<Equipment> result = equipmentService.searchEquipmentByGivenType(givenType);
+
+        assertTrue(result.isEmpty());
+    }
 }
