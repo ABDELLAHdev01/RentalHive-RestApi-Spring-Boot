@@ -8,13 +8,7 @@
       http://www.liquibase.org/xml/ns/pro 
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">  
       
-        <!-- create your changeset here -->
-        <changeSet author="ahmed (generated)" id="169999375712-2">
-		    <addColumn 
-		        tableName="users">
-		        <column name="address" 
-		            type="varchar(255)"/>  
-		    </addColumn>  
-        </changeSet>
-    
+      
+      
+        
 </databaseChangeLog> 
