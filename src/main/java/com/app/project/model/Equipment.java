@@ -23,7 +23,7 @@ public class Equipment {
 	private String status;
 	private double price;
 	private String registration_number;
-	
+	private String address;
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
