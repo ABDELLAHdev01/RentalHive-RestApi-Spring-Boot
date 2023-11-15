@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="ahmed (generated)" id="1699998950952-1">
+        <createTable tableName="equipments">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-2">
+        <createTable tableName="rent_equipment">
+            <column name="rent_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="equipment_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-3">
+        <createTable tableName="rents">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rent_date" type="datetime"/>
+            <column name="return_date" type="datetime"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-4">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="family_name" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="number" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-5">
+        <createIndex indexName="FK3pf0l216l390r3ya1pk8wvxe9" tableName="rents">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-6">
+        <createIndex indexName="FK6dy10moqqawetk4nhelx70ts0" tableName="rent_equipment">
+            <column name="equipment_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-7">
+        <createIndex indexName="FKsaq6sudm571w0tmbjef0yc45m" tableName="rent_equipment">
+            <column name="rent_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-8">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="rents" constraintName="FK3pf0l216l390r3ya1pk8wvxe9" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-9">
+        <addForeignKeyConstraint baseColumnNames="equipment_id" baseTableName="rent_equipment" constraintName="FK6dy10moqqawetk4nhelx70ts0" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="equipments" validate="true"/>
+    </changeSet>
+    <changeSet author="ahmed (generated)" id="1699998950952-10">
+        <addForeignKeyConstraint baseColumnNames="rent_id" baseTableName="rent_equipment" constraintName="FKsaq6sudm571w0tmbjef0yc45m" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="rents" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

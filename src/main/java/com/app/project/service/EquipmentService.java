@@ -27,6 +27,6 @@ public class EquipmentService {
 		
 	}
 	public List<Equipment> searchEquipmentByGivenType(String givenType){
-		return null;
+		return equipmentRepository.searchEquipment(givenType,givenType, givenType);
 	}
 }
