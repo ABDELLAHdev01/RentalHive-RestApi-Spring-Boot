@@ -1,0 +1,37 @@
+package com.app.project.controllers;
+
+import com.app.project.model.Equipment;
+import com.app.project.model.Rent;
+import com.app.project.model.User;
+import com.app.project.service.RentService;
+import com.app.project.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+public class RentController {
+    private final RentService rentService;
+    private  final UserService userService;
+
+    @GetMapping("/")
+    public List<Rent> findAll() {
+        return rentService.findAll();
+    }
+
+    @PostMapping("/RentEquipment")
+    public Rent save(@RequestBody Rent rent) {
+//        Rent rent1 = Rent.builder().equipments(null).rentDate(null).returnDate(null).user(user).build();
+        return rentService.save(rent);
+    }
+    @GetMapping("/test")
+    public String find() {
+        return rentService.test();
+    }
+}
