@@ -30,6 +30,16 @@ public class RentController {
 //        Rent rent1 = Rent.builder().equipments(null).rentDate(null).returnDate(null).user(user).build();
         return rentService.save(rent);
     }
+    @DeleteMapping("/DeleteRent/{id}")
+    public String delete(@PathVariable Long id) {
+        return rentService.delete(id);
+    }
+    @PutMapping("UpdateRent/{id}")
+    public  Rent update(@PathVariable Long id , @RequestBody Rent rent){
+        return rentService.update(id, rent);
+    }
+
+
     @GetMapping("/test")
     public String find() {
         return rentService.test();

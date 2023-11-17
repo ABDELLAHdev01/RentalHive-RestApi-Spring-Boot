@@ -28,29 +28,33 @@ class RentServiceTest {
 
 
     @Test
-    void RentAnEquipment() {
-//        List<Equipment> equipmentList =new ArrayList<>();
-//        equipmentList.add(new Equipment(1L, "name", "vailiable", 102, "KLZE48E", null));
-//        User user = new User();
-//        user.setId(1L);
-//        Rent rent = new Rent();
-//        rent.setRentDate(null);
-//        rent.setReturnDate(null);
-//        rent.setEquipments(equipmentList);
-//        rent.setUser(user);
-//        when(rentRepository.save(rent)).thenReturn(rent);
-//        Rent rent2 = rentService.save(rent);
-//        assertEquals(rent, rent2);
+    void RentAnEquipment1() {
+        List<Equipment> equipmentList =new ArrayList<>();
+        equipmentList.add(new Equipment(1L, "name", "vailiable", 102, "KLZE48E", null));
+        User user = new User();
+        user.setId(1L);
+        Rent rent = new Rent();
+        rent.setRentDate(null);
+        rent.setReturnDate(null);
+        rent.setEquipments(equipmentList);
+        rent.setUser(user);
+        when(rentRepository.save(rent)).thenReturn(rent);
+        Rent rent2 = rentService.save(rent);
+        Rent rent1 = new Rent();
+        assertEquals(rent, rent2);
+    }
+//    void RentAnEquipment2(){
+//
+//    }
+
+    @Test
+    void FindAllRents1(){
+        when(rentRepository.findAll()).thenReturn(Stream.of(new Rent(1L , null , null , null,null)).collect(Collectors.toList()));
+        assertEquals(1, rentService.findAll().size());
     }
 
     @Test
-    void GetAllRents(){
-        when(rentRepository.findAll()).thenReturn(Stream.of(new Rent(1L , null , null , null,null)).collect(Collectors.toList()));
-        assertEquals(1, rentService.findAll().size());
-            }
-
-    @Test
-    public void testFindAllRents() {
+    public void FindAllRents2() {
         Rent rent1 = new Rent();
         Rent rent2 = new Rent();
         Rent rent3= new Rent();
@@ -58,7 +62,7 @@ class RentServiceTest {
         // Call the service method
         List<Rent> allRents = rentService.findAll();
         assertEquals(3, allRents.size());
-//        assertEquals(rent1, allRents.get(0));
-//        assertEquals(rent2, allRents.get(1));
+        assertEquals(rent1, allRents.get(0));
+        assertEquals(rent2, allRents.get(1));
     }
 }

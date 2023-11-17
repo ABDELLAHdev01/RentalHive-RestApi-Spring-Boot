@@ -8,6 +8,8 @@ import java.util.List;
 public interface RentService {
     public List<Rent> findAll();
     public Rent save(Rent rent);
+    public String delete(Long id);
+    public Rent update(Long id , Rent rent);
 
    public String test();
 }

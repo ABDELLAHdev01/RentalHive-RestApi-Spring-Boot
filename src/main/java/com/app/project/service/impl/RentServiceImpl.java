@@ -25,8 +25,26 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Rent save(Rent rent) {
-//        User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
         return rentRepository.save(rent);
+    }
+
+    @Override
+    public String delete(Long id){
+        Rent rent = rentRepository.findById(id).orElseThrow(() -> new RuntimeException("Rent not found!!!"));
+        rentRepository.deleteById(id);
+        return "You Have Dleted this Rent Successfuly";
+    }
+
+    @Override
+    public Rent update(Long id, Rent rent) {
+        Rent existingRent = rentRepository.findById(id).get();
+        existingRent.setRentDate(rent.getRentDate());
+        existingRent.setReturnDate(rent.getReturnDate());
+        existingRent.setUser(rent.getUser());
+        existingRent.setEquipments(rent.getEquipments());
+        Rent updatedrent = rentRepository.save(existingRent);
+        return updatedrent;
     }
 
     @Override
