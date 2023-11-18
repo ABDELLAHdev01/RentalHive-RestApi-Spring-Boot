@@ -33,4 +33,15 @@ public class EquipmentController {
 
 		return equipmentService.createEquipment(givenEquipment, GivenCategory);
 	}
+
+
+	@PostMapping("/upateEquipment")
+	public Equipment updateEquipment(@RequestParam String givenName ,@RequestParam Double GivenPrice,@RequestParam String GivenRegistration_number, @RequestParam String givenStatus, @RequestParam String givenCategory){
+		Equipment EquipmentToUpdate = new Equipment();
+		EquipmentToUpdate.setName(givenName);
+		EquipmentToUpdate.setPrice(GivenPrice);
+		EquipmentToUpdate.setRegistration_number(GivenRegistration_number);
+		EquipmentToUpdate.setStatus(givenStatus);
+		return equipmentService.updateEquipment(EquipmentToUpdate, givenCategory);
+	}
 }

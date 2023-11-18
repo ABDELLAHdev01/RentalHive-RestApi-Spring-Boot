@@ -30,8 +30,16 @@ public class EquipmentService {
 		}
 	}
 
-	public void updateEquipment(Equipment equipment) {
-		
+	public Equipment updateEquipment(Equipment equipment ,String GivenCategory) {
+
+
+			Equipment EquipmentNeedToUpdate = equipmentRepository.FindEquipment(equipment.getName());
+			EquipmentNeedToUpdate.setPrice(equipment.getPrice());
+			EquipmentNeedToUpdate.setStatus(equipment.getStatus());
+			EquipmentNeedToUpdate.setRegistration_number(equipment.getRegistration_number());
+			EquipmentNeedToUpdate.setCategory(categoryRepository.findCategoryByName(GivenCategory));
+			return equipmentRepository.save(EquipmentNeedToUpdate);
+
 	}
 	public void deleteEquipment(Long id) {
 		
