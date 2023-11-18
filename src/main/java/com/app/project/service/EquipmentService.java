@@ -47,4 +47,5 @@ public class EquipmentService {
 	public List<Equipment> searchEquipmentByGivenType(String givenType){
 		return equipmentRepository.searchEquipment(givenType,givenType, givenType);
 	}
+
 }
