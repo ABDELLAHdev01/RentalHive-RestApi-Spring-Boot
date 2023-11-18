@@ -2,6 +2,7 @@ package com.app.project.service;
 
 import java.util.List;
 
+import com.app.project.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,22 @@ public class EquipmentService {
 
 	@Autowired
 	private EquipmentRepository equipmentRepository;
-
+	@Autowired
+	private CategoryRepository categoryRepository;
 	public List<Equipment> getAllEquipment(){
 		return null;
 	}
-	public void createEquipment(Equipment equipment) {
-		
+	public Equipment createEquipment(Equipment equipment , String givenCategory) {
+		if (categoryRepository.findCategoryByName(givenCategory) == null){
+			return null;
+		}else {
+			equipment.setCategory(categoryRepository.findCategoryByName(givenCategory));
+			return equipmentRepository.save(equipment);
+
+
+		}
 	}
+
 	public void updateEquipment(Equipment equipment) {
 		
 	}
