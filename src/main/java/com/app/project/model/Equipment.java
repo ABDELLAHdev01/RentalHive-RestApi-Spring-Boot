@@ -17,9 +17,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
+
 @Table(name ="equipments")
 public class Equipment {
 

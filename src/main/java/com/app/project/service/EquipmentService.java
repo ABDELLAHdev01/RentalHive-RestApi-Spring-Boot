@@ -48,4 +48,5 @@ public class EquipmentService {
 		return equipmentRepository.searchEquipment(givenType,givenType, givenType);
 	}
 
+
 }
