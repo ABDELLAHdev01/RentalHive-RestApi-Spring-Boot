@@ -52,4 +52,8 @@ public class RentServiceImpl implements RentService {
     public String test() {
         return "OK";
     }
+
+    public List<Rent> getRentalHistoryForEquipment(String equipmentName) {
+        return rentRepository.findByEquipmentsName(equipmentName);
+    }
 }

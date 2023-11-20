@@ -1,6 +1,7 @@
 package com.app.project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.app.project.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,16 @@ public class EquipmentService {
 			return equipmentRepository.save(EquipmentNeedToUpdate);
 
 	}
-	public void deleteEquipment(Long id) {
-		
+	public void deleteEquipment(Long equipmentId) {
+		Optional<Equipment> optionalEquipment = equipmentRepository.findById(equipmentId);
+
+		if (optionalEquipment.isPresent()) {
+		equipmentRepository.deleteById(equipmentId);
+		}else{
+			System.out.println("Equipment with ID " + equipmentId + " not found.");
+		}
 	}
 	public List<Equipment> searchEquipmentByGivenType(String givenType){
 		return equipmentRepository.searchEquipment(givenType,givenType, givenType);
 	}
-
-
 }

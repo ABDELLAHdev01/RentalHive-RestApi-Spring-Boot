@@ -3,9 +3,11 @@ package com.app.project.controllers;
 import com.app.project.model.Equipment;
 import com.app.project.model.Rent;
 import com.app.project.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.app.project.service.RentService;
 import com.app.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,8 +19,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class RentController {
-    private final RentService rentService;
+    @Autowired
+    private RentService rentService;
     private  final UserService userService;
+
+    @JsonIgnore
+    @GetMapping("/{equipmentName}")
+    public List<Rent> getRentalHistoryForEquipment(@PathVariable String equipmentName) {
+
+        return rentService.getRentalHistoryForEquipment(equipmentName);
+    }
 
     @GetMapping("/Rents/")
     public List<Rent> findAll() {
@@ -44,4 +54,5 @@ public class RentController {
     public String find() {
         return rentService.test();
     }
+
 }
