@@ -31,13 +31,18 @@ public class RentServiceImpl implements RentService {
     @Override
     public Rent save(Rent rent) {
       User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Long> rentedEquipmentIds = new ArrayList<>();
         for (Equipment equipment : rent.getEquipments()) {
+            if(rentedEquipmentIds.contains((equipment.getId()))){
+                throw new RuntimeException("You Cant rent an equipment multiple time in the same reservation");
+            }
             if (equipmentService.findById(equipment.getId()) == null) {
                 throw new RuntimeException("Equipment with Id " + equipment.getId() + " not found");
             }
             if(!isAllredyRented(equipment.getId() , rent.getRentDate() , rent.getReturnDate()).isEmpty()){
                 throw new RuntimeException("Equipment with Id " + equipment.getId() + " is already rented");
             }
+            rentedEquipmentIds.add(equipment.getId());
         }
         return rentRepository.save(rent);
     }
