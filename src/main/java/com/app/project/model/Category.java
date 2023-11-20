@@ -1,5 +1,7 @@
 package com.app.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +22,8 @@ public class Category {
 	private String name;
 
 	@OneToMany(mappedBy = "category")
+	@JsonIgnoreProperties("category")
 	private List<Equipment> equipments ;
+
+
 }
