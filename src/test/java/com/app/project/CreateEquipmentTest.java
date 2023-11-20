@@ -1,6 +1,7 @@
 package com.app.project;
 
 import com.app.project.model.Equipment;
+import com.app.project.repository.CategoryRepository;
 import com.app.project.repository.EquipmentRepository;
 import com.app.project.service.EquipmentService;
 import org.junit.jupiter.api.Test;
@@ -8,11 +9,16 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class CreateEquipmentTest {
 
     @MockBean
     private EquipmentRepository equipmentRepository;
+    @MockBean
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private EquipmentService equipmentService;
@@ -34,19 +40,23 @@ public class CreateEquipmentTest {
 
 
     @Test
-    void UpdateEquipment(){
-        Equipment equipment = new Equipment();
-        equipment.setPrice(22d);
-        equipment.setName("dd");
-        equipment.setStatus("PENDING");
+    public void test_returnNullWhenCategoryNotFound() {
+        // Arrange
+        Equipment equipment = Equipment.builder()
+                .id(2l)
+                .price(23d)
+                .status("available")
+                .registration_number("bbb3")
+                .build();
+        String givenCategory = "category";
+        Mockito.when(categoryRepository.findCategoryByName(givenCategory)).thenReturn(null);
 
-        // Mock the save method of the equipmentRepository
-        Mockito.when(equipmentRepository.save(equipment)).thenReturn(equipment);
+        // Act
+        Equipment result = equipmentService.createEquipment(equipment, givenCategory);
 
-        equipmentService.updateEquipment(equipment,"yy");
-        Mockito.verify(equipmentRepository).save(equipment);
-
-
-
+        // Assert
+        assertNull(result);
     }
+
+
 }
