@@ -1,26 +1,26 @@
 package com.app.project.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+//import org.springframework.web.bind.annotation.ControllerAdvice;
+//import org.springframework.web.bind.annotation.ExceptionHandler;
+//import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class ApiException {
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ErrorResponse> handleResponseStatusException(ResponseStatusException ex) {
-        HttpStatusCode status = ex.getStatusCode();
-        String message = ex.getReason();
-        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
-        return ResponseEntity.status(status).body(errorResponse);
+
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Map<String,Object>> handleRuntimeException(RuntimeException ex) {
+        Map<String,Object> response = new HashMap<>();
+        response.put("message", ex.getMessage());
+        response.put("status","error");
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private record ErrorResponse(int statusCode, String message) {
-    }
+
 }

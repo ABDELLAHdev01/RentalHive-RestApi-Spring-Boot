@@ -12,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -63,17 +66,19 @@ private EquipmentRepository equipmentRepository;
         assertThrows(RuntimeException.class, () -> rentService.save(rent));
     }
     @Test
-    void throwExceptionIfEquipmentAlreadyRented(){
+    void throwExceptionIfEquipmentAlreadyRented() throws ParseException {
         Rent rent = new Rent();
         Equipment equipment1 = new Equipment();
         equipment1.setId(1L);
         Equipment equipment2 = new Equipment();
         equipment2.setId(2L);
         rent.setEquipments(List.of(equipment1,equipment2));
-//        rent.setRentDate(new Date(123, 9, 22));
-//        rent.setReturnDate(new Date(123, 10, 22));
-//        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(new Equipment()));
-//        when(rentRepository.isAllredyRented(1L, rent.getRentDate(), rent.getReturnDate())).thenReturn();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        rent.setRentDate(dateFormat.parse("2023-11-22"));
+        rent.setReturnDate(dateFormat.parse("2023-11-29"));
+        List<Rent> rentedList = new ArrayList<>();
+//        rentedList.add(rent);
+        when(rentRepository.isAlreadyRented(1L, rent.getRentDate(), rent.getReturnDate())).thenReturn(rentedList);
         assertThrows(RuntimeException.class, () -> rentService.save(rent));
     }
 

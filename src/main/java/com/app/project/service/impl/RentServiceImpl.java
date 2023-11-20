@@ -9,10 +9,13 @@ import com.app.project.service.RentService;
 import com.app.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+
 @Component
 @RequiredArgsConstructor
 public class RentServiceImpl implements RentService {
@@ -27,16 +30,14 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Rent save(Rent rent) {
-        User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
+      User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
         for (Equipment equipment : rent.getEquipments()) {
             if (equipmentService.findById(equipment.getId()) == null) {
                 throw new RuntimeException("Equipment with Id " + equipment.getId() + " not found");
-//                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Equipment with Id " + equipment.getId() + " not found");
             }
-//            if(equipmentService.isAllredyRented()){
-//
-//            }
-
+            if(!isAllredyRented(equipment.getId() , rent.getRentDate() , rent.getReturnDate()).isEmpty()){
+                throw new RuntimeException("Equipment with Id " + equipment.getId() + " is already rented");
+            }
         }
         return rentRepository.save(rent);
     }
@@ -59,11 +60,10 @@ public class RentServiceImpl implements RentService {
         Rent updatedrent = rentRepository.save(existingRent);
         return updatedrent;
     }
-
-
-//    public List<Equipment> isAllredyRented(Long equipmentId , l){
-//
-//    }
+    @Override
+    public List<Rent> isAllredyRented(Long equipmentId , Date rentDate , Date returnDate){
+        return rentRepository.isAlreadyRented(equipmentId , rentDate , returnDate);
+    }
     @Override
     public String test() {
         return "OK";
