@@ -20,7 +20,7 @@ public class RentController {
     private final RentService rentService;
     private  final UserService userService;
 
-    @GetMapping("/Rents/")
+    @GetMapping("/Rents")
     public List<Rent> findAll() {
         return rentService.findAll();
     }

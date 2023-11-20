@@ -8,7 +8,9 @@ import com.app.project.service.EquipmentService;
 import com.app.project.service.RentService;
 import com.app.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 @Component
@@ -26,7 +28,16 @@ public class RentServiceImpl implements RentService {
     @Override
     public Rent save(Rent rent) {
         User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
-//        Equipment equipment = equipmentService.finById(rent.getEquipments().);
+        for (Equipment equipment : rent.getEquipments()) {
+            if (equipmentService.findById(equipment.getId()) == null) {
+                throw new RuntimeException("Equipment with Id " + equipment.getId() + " not found");
+//                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Equipment with Id " + equipment.getId() + " not found");
+            }
+//            if(equipmentService.isAllredyRented()){
+//
+//            }
+
+        }
         return rentRepository.save(rent);
     }
 
@@ -36,6 +47,7 @@ public class RentServiceImpl implements RentService {
         rentRepository.deleteById(id);
         return "You Have Deleted this Rent Successfuly";
     }
+
 
     @Override
     public Rent update(Long id, Rent rent) {
@@ -48,6 +60,10 @@ public class RentServiceImpl implements RentService {
         return updatedrent;
     }
 
+
+//    public List<Equipment> isAllredyRented(Long equipmentId , l){
+//
+//    }
     @Override
     public String test() {
         return "OK";
