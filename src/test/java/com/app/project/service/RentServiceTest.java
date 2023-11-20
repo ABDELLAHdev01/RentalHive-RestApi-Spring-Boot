@@ -43,6 +43,7 @@ class RentServiceTest {
         Rent rent1 = new Rent();
         assertEquals(rent, rent2);
     }
+//    @Test
 //    void RentAnEquipment2(){
 //
 //    }

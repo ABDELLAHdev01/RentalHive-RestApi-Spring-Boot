@@ -26,6 +26,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public Rent save(Rent rent) {
         User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
+//        Equipment equipment = equipmentService.finById(rent.getEquipments().);
         return rentRepository.save(rent);
     }
 
@@ -33,7 +34,7 @@ public class RentServiceImpl implements RentService {
     public String delete(Long id){
         Rent rent = rentRepository.findById(id).orElseThrow(() -> new RuntimeException("Rent not found!!!"));
         rentRepository.deleteById(id);
-        return "You Have Dleted this Rent Successfuly";
+        return "You Have Deleted this Rent Successfuly";
     }
 
     @Override
