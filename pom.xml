@@ -73,10 +73,12 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <configuration>
-					<url> jdbc:mysql://localhost:3306/rentalhive_db</url>
+					<url> jdbc:mysql://localhost:3308/rentalhive_db</url>
 					<driver>com.mysql.cj.jdbc.Driver</driver>
 					<username>root</username>
-                    <password>eRROR404@</password>
+
+
+                    <password></password>
                     <propertyFile>src/main/resources/application.properties</propertyFile>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                      <changeLogFile>src/main/resources/db/changelog-master.xml</changeLogFile>
