@@ -1,21 +1,19 @@
 package com.app.project.service;
 
 import com.app.project.model.Rent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.app.project.repository.RentRepository;
 
 import java.util.List;
 
+
+
 @Service
-public class RentService {
+public interface RentService {
+	public List<Rent> findAll();
+	public Rent save(Rent rent);
+	public String delete(Long id);
+	public Rent update(Long id , Rent rent);
 
-	@Autowired
-	private RentRepository rentRepository;
-
-	public List<Rent> getRentalHistoryForEquipment(String equipmentName) {
-		return rentRepository.findByEquipmentsName(equipmentName);
-	}
-	
+	public String test();
+	public List<Rent> getRentalHistoryForEquipment(String equipmentName);
 }
