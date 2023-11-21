@@ -8,9 +8,14 @@ import com.app.project.service.EquipmentService;
 import com.app.project.service.RentService;
 import com.app.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+
 @Component
 @RequiredArgsConstructor
 public class RentServiceImpl implements RentService {
@@ -25,8 +30,20 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Rent save(Rent rent) {
-        User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
-//        Equipment equipment = equipmentService.finById(rent.getEquipments().);
+      User user = userService.findById(rent.getUser().getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Long> rentedEquipmentIds = new ArrayList<>();
+        for (Equipment equipment : rent.getEquipments()) {
+            if(rentedEquipmentIds.contains((equipment.getId()))){
+                throw new RuntimeException("You Cant rent an equipment multiple time in the same reservation");
+            }
+            if (equipmentService.findById(equipment.getId()) == null) {
+                throw new RuntimeException("Equipment with Id " + equipment.getId() + " not found");
+            }
+            if(!isAllredyRented(equipment.getId() , rent.getRentDate() , rent.getReturnDate()).isEmpty()){
+                throw new RuntimeException("Equipment with Id " + equipment.getId() + " is already rented");
+            }
+            rentedEquipmentIds.add(equipment.getId());
+        }
         return rentRepository.save(rent);
     }
 
@@ -36,6 +53,7 @@ public class RentServiceImpl implements RentService {
         rentRepository.deleteById(id);
         return "You Have Deleted this Rent Successfuly";
     }
+
 
     @Override
     public Rent update(Long id, Rent rent) {
@@ -47,7 +65,10 @@ public class RentServiceImpl implements RentService {
         Rent updatedrent = rentRepository.save(existingRent);
         return updatedrent;
     }
-
+    @Override
+    public List<Rent> isAllredyRented(Long equipmentId , Date rentDate , Date returnDate){
+        return rentRepository.isAlreadyRented(equipmentId , rentDate , returnDate);
+    }
     @Override
     public String test() {
         return "OK";

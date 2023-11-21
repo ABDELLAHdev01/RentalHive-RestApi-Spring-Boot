@@ -49,4 +49,7 @@ public class EquipmentService {
 	}
 
 
+	public Equipment findById(Long id) {
+		return equipmentRepository.findById(id).get();
+	}
 }
