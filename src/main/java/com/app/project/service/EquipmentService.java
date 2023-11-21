@@ -18,7 +18,10 @@ public class EquipmentService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	public List<Equipment> getAllEquipment(){
-		return null;
+		return equipmentRepository.findAll();
+	}
+	public Optional<Equipment> getOneEquipment(Long Id){
+		return equipmentRepository.findById(Id);
 	}
 	public Equipment createEquipment(Equipment equipment , String givenCategory) {
 		if (categoryRepository.findCategoryByName(givenCategory) == null){
