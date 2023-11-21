@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.app.project.service.RentService;
 import com.app.project.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,8 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class RentController {
-    @Autowired
-    private RentService rentService;
+    private final RentService rentService;
     private  final UserService userService;
 
     @JsonIgnore
@@ -54,5 +52,4 @@ public class RentController {
     public String find() {
         return rentService.test();
     }
-
 }
